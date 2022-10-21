@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import CircularProgress from '@mui/material/CircularProgress';
+import UserItem from './UserItem'
 
 function UserResults() {
 
@@ -28,10 +29,12 @@ function UserResults() {
       {!loading ? 
         <div className='grid grid-cols-1 gap-8 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2'>
           {users.map((user) => (
-            <h3>{user.login}</h3>
+            <UserItem key={user.id} user={user} />
           ))}
         </div>
-        : <h3 className='w-100 mt-20 text-center mx-auto'>{<CircularProgress />}</h3>}
+        : <h3 className='w-100 mt-20 text-center mx-auto'>
+            {<CircularProgress />}
+          </h3>}
     </div>
    )  
 }
