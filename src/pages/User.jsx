@@ -6,14 +6,16 @@ import GroupsIcon from '@mui/icons-material/Groups'
 import PeopleIcon from '@mui/icons-material/People'
 import CodeIcon from '@mui/icons-material/Code'
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory'
+import RepoList from '../components/repos/RepoList'
 
 function User() {
-  const {getUser, user, loading} = useContext(GithubContext)
+  const {getUser, user, getRepos, repos, loading} = useContext(GithubContext)
 
   const params = useParams()
 
   useEffect(() => {
     getUser(params.login)
+    getRepos(params.login)
   }, [])
 
   const {
@@ -150,6 +152,7 @@ function User() {
           </div>
 
         </div>
+        <RepoList repos={repos} />
         </div>
         : <h3 className=''>
             {<CircularProgress />}
