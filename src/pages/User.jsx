@@ -1,7 +1,11 @@
 import { useEffect, useContext } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import CircularProgress from '@mui/material/CircularProgress';
+import CircularProgress from '@mui/material/CircularProgress'
 import GithubContext from '../context/github/GithubContext'
+import GroupsIcon from '@mui/icons-material/Groups'
+import PeopleIcon from '@mui/icons-material/People'
+import CodeIcon from '@mui/icons-material/Code'
+import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory'
 
 function User() {
   const {getUser, user, loading} = useContext(GithubContext)
@@ -95,7 +99,57 @@ function User() {
               )}
             </div>
           </div>
-         </div>
+        </div>
+        <div className='w-full py-5 mb-6 rounded-lg shadow-md bg-base-100 stats'>
+          <div className='stat'>
+            <div className='stat-figure text-secondary'>
+                {<GroupsIcon />}
+            </div>
+            <div className='stat-title pr-5'>
+                Followers
+            </div>
+            <div className='stat-value pr-5 text-3xl md:text-4xl'>
+                {followers}
+            </div>
+          </div>
+
+          <div className='stat'>
+            <div className='stat-figure text-secondary'>
+                {<PeopleIcon/>}
+            </div>
+            <div className='stat-title pr-5'>
+                Following
+            </div>
+            <div className='stat-value pr-5 text-3xl md:text-4xl'>
+                {following}
+            </div>
+          </div>
+
+          <div className='stat'>
+            <div className='stat-figure text-secondary'>
+                {<CodeIcon/>}
+            </div>
+            <div className='stat-title pr-5'>
+                Public Repos
+            </div>
+            <div className='stat-value pr-5 text-3xl md:text-4xl'>
+                {public_repos}
+            </div>
+          </div>
+
+          <div className='stat'>
+            <div className='stat-figure text-secondary'>
+                {<StoreMallDirectoryIcon/>}
+            </div>
+            <div className='stat-title pr-5'>
+                Public Gists
+            </div>
+            <div className='stat-value pr-5 text-3xl md:text-4xl'>
+                {public_gists}
+            </div>
+          </div>
+
+        </div>
         </div>
         : <h3 className=''>
             {<CircularProgress />}
