@@ -7,16 +7,26 @@ import PeopleIcon from '@mui/icons-material/People'
 import CodeIcon from '@mui/icons-material/Code'
 import StoreMallDirectoryIcon from '@mui/icons-material/StoreMallDirectory'
 import RepoList from '../components/repos/RepoList'
+import {getUser, getRepos} from '../context/github/GithubActions'
+
 
 function User() {
-  const {getUser, user, getRepos, repos, loading} = useContext(GithubContext)
+  const {user, repos, loading, dispatch} = useContext(GithubContext)
 
   const params = useParams()
 
   useEffect(() => {
-    getUser(params.login)
-    getRepos(params.login)
-  }, [])
+    dispatch({type: 'SET_LOADING'})
+    const getUserData = async () => {
+      const userData = await getUser(params.login)
+      dispatch({type: 'GET_USER', payload: userData})
+
+      const userRepoData = await getRepos(params.login)
+      dispatch({type: 'GET_REPOS', payload: userRepoData})
+    }
+
+    getUserData()
+  }, [dispatch, params.login])
 
   const {
     name,
@@ -48,7 +58,7 @@ function User() {
           <div className='custom-card-image mb-6 md:mb-0'>
             <div className='rounded-lg shadow-xl card image-full'>
               <figure>
-                <img src={avatar_url} alt='Profile picture'/>
+                <img src={avatar_url} alt='Profile'/>
               </figure>
               <div className='card-body justify-end'>
                 <h2 className='card-title mb-0'>
